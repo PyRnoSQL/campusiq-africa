@@ -1,0 +1,66 @@
+{
+  "app_name": "CampusIQ Africa",
+  "tagline": "Run your school or university — online or off.",
+  "nav": {
+    "dashboard": "Dashboard",
+    "students": "Students",
+    "staff": "Staff",
+    "classes": "Classes & Programs",
+    "attendance": "Attendance",
+    "grades": "Grades",
+    "finance": "Fees & Finance",
+    "admissions": "Admissions",
+    "documents": "Certificates",
+    "announcements": "Announcements",
+    "analytics": "Analytics & Risk",
+    "settings": "Settings",
+    "logout": "Log out"
+  },
+  "login": {
+    "title": "Sign in",
+    "subtitle": "Access your institution's workspace",
+    "email": "Email address",
+    "password": "Password",
+    "submit": "Sign in",
+    "demo_hint": "Demo password for all sample accounts: Campus2026!",
+    "error": "Invalid email or password"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "add": "Add",
+    "edit": "Edit",
+    "delete": "Deactivate",
+    "search": "Search",
+    "loading": "Loading…",
+    "no_results": "Nothing here yet",
+    "offline": "You're offline — changes will sync automatically",
+    "syncing": "Syncing {{count}} pending changes…",
+    "synced": "All changes synced",
+    "language": "Language"
+  },
+  "dashboard": {
+    "total_students": "Students",
+    "total_staff": "Staff",
+    "attendance_rate": "Attendance rate",
+    "collection_rate": "Fee collection",
+    "pending_admissions": "Pending admissions",
+    "at_risk": "Students at risk",
+    "welcome": "Welcome back, {{name}}"
+  },
+  "students": {
+    "title": "Students",
+    "add_new": "Add student",
+    "matricule": "Matricule",
+    "name": "Name",
+    "class": "Class / Program",
+    "status": "Status",
+    "guardian": "Guardian contact"
+  },
+  "risk": {
+    "title": "Early-warning: students at risk",
+    "subtitle": "Flagged automatically from attendance and grade trends",
+    "high": "High risk",
+    "medium": "Medium risk"
+  }
+}

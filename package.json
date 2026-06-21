@@ -1,0 +1,18 @@
+{
+  "name": "campusiq-africa",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CampusIQ Africa — Offline-first PWA for administering Schools & Universities (General, Technical/Vocational, Higher Ed) across Africa. Single Railway service: Express API + React PWA, Google Sheets as the data backend.",
+  "workspaces": ["server", "client"],
+  "scripts": {
+    "install:all": "npm install && npm install --prefix server && npm install --prefix client",
+    "dev:server": "npm run dev --prefix server",
+    "dev:client": "npm run dev --prefix client",
+    "build": "npm install --prefix client && npm run build --prefix client && npm install --prefix server",
+    "start": "node server/src/index.js",
+    "setup:sheets": "node server/scripts/setupSheets.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

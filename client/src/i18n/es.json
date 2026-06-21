@@ -1,0 +1,66 @@
+{
+  "app_name": "CampusIQ Africa",
+  "tagline": "Gestiona tu institución — en línea o sin conexión.",
+  "nav": {
+    "dashboard": "Panel",
+    "students": "Estudiantes",
+    "staff": "Personal",
+    "classes": "Clases y Programas",
+    "attendance": "Asistencia",
+    "grades": "Calificaciones",
+    "finance": "Cuotas y Finanzas",
+    "admissions": "Admisiones",
+    "documents": "Certificados",
+    "announcements": "Anuncios",
+    "analytics": "Análisis y Riesgo",
+    "settings": "Configuración",
+    "logout": "Cerrar sesión"
+  },
+  "login": {
+    "title": "Iniciar sesión",
+    "subtitle": "Accede al espacio de tu institución",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "submit": "Iniciar sesión",
+    "demo_hint": "Contraseña de demostración para todas las cuentas: Campus2026!",
+    "error": "Correo o contraseña inválidos"
+  },
+  "common": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "add": "Añadir",
+    "edit": "Editar",
+    "delete": "Desactivar",
+    "search": "Buscar",
+    "loading": "Cargando…",
+    "no_results": "Aún no hay nada aquí",
+    "offline": "Estás sin conexión — los cambios se sincronizarán automáticamente",
+    "syncing": "Sincronizando {{count}} cambios pendientes…",
+    "synced": "Todos los cambios están sincronizados",
+    "language": "Idioma"
+  },
+  "dashboard": {
+    "total_students": "Estudiantes",
+    "total_staff": "Personal",
+    "attendance_rate": "Tasa de asistencia",
+    "collection_rate": "Cobro de cuotas",
+    "pending_admissions": "Admisiones pendientes",
+    "at_risk": "Estudiantes en riesgo",
+    "welcome": "Bienvenido de nuevo, {{name}}"
+  },
+  "students": {
+    "title": "Estudiantes",
+    "add_new": "Añadir estudiante",
+    "matricule": "Matrícula",
+    "name": "Nombre",
+    "class": "Clase / Programa",
+    "status": "Estado",
+    "guardian": "Contacto del tutor"
+  },
+  "risk": {
+    "title": "Alerta temprana: estudiantes en riesgo",
+    "subtitle": "Detectados automáticamente por asistencia y calificaciones",
+    "high": "Riesgo alto",
+    "medium": "Riesgo medio"
+  }
+}

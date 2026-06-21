@@ -1,0 +1,66 @@
+{
+  "app_name": "CampusIQ Africa",
+  "tagline": "Gérez votre établissement — en ligne ou hors ligne.",
+  "nav": {
+    "dashboard": "Tableau de bord",
+    "students": "Élèves",
+    "staff": "Personnel",
+    "classes": "Classes & Filières",
+    "attendance": "Présences",
+    "grades": "Notes",
+    "finance": "Frais & Finances",
+    "admissions": "Admissions",
+    "documents": "Attestations",
+    "announcements": "Annonces",
+    "analytics": "Analyses & Risques",
+    "settings": "Paramètres",
+    "logout": "Déconnexion"
+  },
+  "login": {
+    "title": "Connexion",
+    "subtitle": "Accédez à l'espace de votre établissement",
+    "email": "Adresse e-mail",
+    "password": "Mot de passe",
+    "submit": "Se connecter",
+    "demo_hint": "Mot de passe de démonstration pour tous les comptes : Campus2026!",
+    "error": "E-mail ou mot de passe invalide"
+  },
+  "common": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "add": "Ajouter",
+    "edit": "Modifier",
+    "delete": "Désactiver",
+    "search": "Rechercher",
+    "loading": "Chargement…",
+    "no_results": "Rien à afficher pour le moment",
+    "offline": "Vous êtes hors ligne — la synchronisation sera automatique",
+    "syncing": "Synchronisation de {{count}} modifications…",
+    "synced": "Toutes les modifications sont synchronisées",
+    "language": "Langue"
+  },
+  "dashboard": {
+    "total_students": "Élèves",
+    "total_staff": "Personnel",
+    "attendance_rate": "Taux de présence",
+    "collection_rate": "Recouvrement des frais",
+    "pending_admissions": "Admissions en attente",
+    "at_risk": "Élèves à risque",
+    "welcome": "Bon retour, {{name}}"
+  },
+  "students": {
+    "title": "Élèves",
+    "add_new": "Ajouter un élève",
+    "matricule": "Matricule",
+    "name": "Nom",
+    "class": "Classe / Filière",
+    "status": "Statut",
+    "guardian": "Contact du tuteur"
+  },
+  "risk": {
+    "title": "Alerte précoce : élèves à risque",
+    "subtitle": "Détectés automatiquement à partir des présences et des notes",
+    "high": "Risque élevé",
+    "medium": "Risque moyen"
+  }
+}
