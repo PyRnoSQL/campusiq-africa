@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
   LayoutDashboard, GraduationCap, Users, BookOpen, CalendarCheck, ClipboardList,
@@ -24,6 +24,7 @@ const NAV_ITEMS = [
   { to: '/documents', key: 'documents', icon: BadgeCheck },
   { to: '/announcements', key: 'announcements', icon: Megaphone },
   { to: '/analytics', key: 'analytics', icon: ActivitySquare },
+  { to: '/settings', key: 'settings', icon: Settings },
 ];
 
 export default function AppShell() {
@@ -32,6 +33,7 @@ export default function AppShell() {
   const { institutions, active, activeId, switchInstitution, typeConfig } = useInstitution();
   const { dark, toggleDark } = useTheme();
   const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <div className="flex min-h-screen bg-sand dark:bg-ink transition-colors">
@@ -135,7 +137,7 @@ export default function AppShell() {
             </select>
           </div>
         </header>
-        <main className="flex-1 px-4 md:px-8 py-6 max-w-7xl w-full mx-auto">
+        <main key={location.pathname} className="flex-1 px-4 md:px-8 py-6 max-w-7xl w-full mx-auto animate-fade-in">
           <Outlet />
         </main>
       </div>

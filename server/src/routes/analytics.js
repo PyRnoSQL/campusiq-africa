@@ -11,12 +11,13 @@ function scopeFilter(req) {
 router.get('/summary', authenticate, scopeToInstitution, async (req, res) => {
   try {
     const filter = scopeFilter(req);
-    const [students, staff, attendance, fees, admissions] = await Promise.all([
+    const [students, staff, attendance, fees, admissions, grades] = await Promise.all([
       findAll('Students', filter),
       findAll('Staff', filter),
       findAll('Attendance', filter),
       findAll('Finance_Fees', filter),
       findAll('Admissions', filter),
+      findAll('Grades_Assessments', filter),
     ]);
 
     const enrolledStudents = students.filter((s) => s.enrollment_status === 'enrolled').length;
@@ -30,6 +31,22 @@ router.get('/summary', authenticate, scopeToInstitution, async (req, res) => {
 
     const pendingAdmissions = admissions.filter((a) => a.application_status === 'pending').length;
 
+    // Pass rate: a 50%-of-max-score threshold works consistently whether the
+    // institution displays scores as /20 or as a 4.0 GPA, since both scales
+    // place their pass mark at the halfway point.
+    const gradedRecords = grades.filter((g) => g.max_score && Number(g.max_score) > 0);
+    const passingRecords = gradedRecords.filter((g) => Number(g.score) / Number(g.max_score) >= 0.5);
+    const passRate = gradedRecords.length ? Math.round((passingRecords.length / gradedRecords.length) * 1000) / 10 : null;
+
+    // Module/credit completion: distinct subject_course entries with at least
+    // one recorded grade, as a share of distinct subjects offered overall —
+    // a simple, transparent proxy until a dedicated curriculum/credits tab exists.
+    const distinctSubjects = new Set(grades.map((g) => g.subject_course)).size;
+    const completedSubjects = new Set(
+      grades.filter((g) => Number(g.score) / Number(g.max_score || 1) >= 0.5).map((g) => g.subject_course)
+    ).size;
+    const completionRate = distinctSubjects ? Math.round((completedSubjects / distinctSubjects) * 1000) / 10 : null;
+
     res.json({
       data: {
         total_students: students.length,
@@ -40,6 +57,8 @@ router.get('/summary', authenticate, scopeToInstitution, async (req, res) => {
         fees_total_paid: totalPaid,
         fees_collection_rate_pct: collectionRate,
         pending_admissions: pendingAdmissions,
+        pass_rate_pct: passRate,
+        completion_rate_pct: completionRate,
       },
     });
   } catch (err) {

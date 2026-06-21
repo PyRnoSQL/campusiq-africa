@@ -14,7 +14,7 @@ const STATUS_STYLE = {
 };
 
 export default function FinancePage() {
-  const { active } = useInstitution();
+  const { active, typeConfig } = useInstitution();
   const [fees, setFees] = useState([]);
   const [students, setStudents] = useState([]);
   const [showForm, setShowForm] = useState(false);
@@ -74,9 +74,11 @@ export default function FinancePage() {
             <option value="">Select student</option>
             {students.map((s) => <option key={s.id} value={s.id}>{s.first_name} {s.last_name}</option>)}
           </select>
-          <input required placeholder="Fee type" value={form.fee_type}
-            onChange={(e) => setForm({ ...form, fee_type: e.target.value })}
-            className="rounded-card border border-line dark:border-ink-border bg-white dark:bg-ink-surface text-ink dark:text-sand px-3.5 py-2.5 text-sm" />
+          <select required value={form.fee_type} onChange={(e) => setForm({ ...form, fee_type: e.target.value })}
+            className="rounded-card border border-line dark:border-ink-border bg-white dark:bg-ink-surface text-ink dark:text-sand px-3.5 py-2.5 text-sm">
+            <option value="">Select fee type</option>
+            {typeConfig.feeTypes.map((ft) => <option key={ft} value={ft}>{ft}</option>)}
+          </select>
           <input value={form.currency} onChange={(e) => setForm({ ...form, currency: e.target.value })}
             placeholder="Currency" className="rounded-card border border-line dark:border-ink-border bg-white dark:bg-ink-surface text-ink dark:text-sand px-3.5 py-2.5 text-sm" />
           <input required type="number" placeholder="Amount due" value={form.amount_due}

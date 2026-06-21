@@ -8,6 +8,7 @@ import StudentsPage from './pages/StudentsPage';
 import GradesPage from './pages/GradesPage';
 import FinancePage from './pages/FinancePage';
 import PublicApplicationPage from './pages/PublicApplicationPage';
+import SettingsPage from './pages/SettingsPage';
 import ModulePage from './pages/ModulePage';
 
 function ProtectedRoute({ children }) {
@@ -53,6 +54,7 @@ export default function App() {
         <Route path="students" element={<StudentsPage />} />
         <Route path="grades" element={<GradesPage />} />
         <Route path="finance" element={<FinancePage />} />
+        <Route path="settings" element={<SettingsPage />} />
         {Object.entries(MODULE_CONFIGS).map(([path, cfg]) => (
           <Route key={path} path={path} element={<ModulePage {...cfg} />} />
         ))}

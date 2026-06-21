@@ -53,6 +53,17 @@ export default function DashboardPage() {
         {typeConfig.dashboardWidgets.includes('collection_rate') && (
           <StatCard label={t('dashboard.collection_rate')} value={summary?.fees_collection_rate_pct ?? '—'} suffix="%" accent="gold" />
         )}
+        {typeConfig.dashboardWidgets.includes('pass_rate') && (
+          <StatCard label="Pass rate" value={summary?.pass_rate_pct ?? '—'} suffix="%" accent="teal" />
+        )}
+        {(typeConfig.dashboardWidgets.includes('credit_completion') || typeConfig.dashboardWidgets.includes('practical_completion')) && (
+          <StatCard
+            label={typeConfig.dashboardWidgets.includes('credit_completion') ? 'Credit completion' : 'Practical module completion'}
+            value={summary?.completion_rate_pct ?? '—'}
+            suffix="%"
+            accent="clay"
+          />
+        )}
       </div>
 
       <div className="grid lg:grid-cols-5 gap-4">

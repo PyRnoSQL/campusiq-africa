@@ -5,7 +5,7 @@ import { useInstitution } from '../context/InstitutionContext';
 import { scoreToScale } from '../config/institutionTypes';
 import { generateReportCardPDF } from '../utils/reportCardPdf';
 
-const emptyForm = { student_id: '', subject_course: '', assessment_type: 'Exam', term: 'Term 1', score: '', max_score: '20', comments: '' };
+const emptyForm = { student_id: '', subject_course: '', assessment_type: '', term: '', score: '', max_score: '20', comments: '' };
 
 export default function GradesPage() {
   const { active, typeConfig } = useInstitution();
@@ -92,12 +92,16 @@ export default function GradesPage() {
           <input required placeholder="Subject / Course" value={form.subject_course}
             onChange={(e) => setForm({ ...form, subject_course: e.target.value })}
             className="rounded-card border border-line dark:border-ink-border bg-white dark:bg-ink-surface text-ink dark:text-sand px-3.5 py-2.5 text-sm" />
-          <input placeholder="Assessment type" value={form.assessment_type}
-            onChange={(e) => setForm({ ...form, assessment_type: e.target.value })}
-            className="rounded-card border border-line dark:border-ink-border bg-white dark:bg-ink-surface text-ink dark:text-sand px-3.5 py-2.5 text-sm" />
-          <input placeholder="Term" value={form.term}
-            onChange={(e) => setForm({ ...form, term: e.target.value })}
-            className="rounded-card border border-line dark:border-ink-border bg-white dark:bg-ink-surface text-ink dark:text-sand px-3.5 py-2.5 text-sm" />
+          <select required value={form.assessment_type} onChange={(e) => setForm({ ...form, assessment_type: e.target.value })}
+            className="rounded-card border border-line dark:border-ink-border bg-white dark:bg-ink-surface text-ink dark:text-sand px-3.5 py-2.5 text-sm">
+            <option value="">Assessment type</option>
+            {typeConfig.assessmentTypes.map((a) => <option key={a} value={a}>{a}</option>)}
+          </select>
+          <select value={form.term} onChange={(e) => setForm({ ...form, term: e.target.value })}
+            className="rounded-card border border-line dark:border-ink-border bg-white dark:bg-ink-surface text-ink dark:text-sand px-3.5 py-2.5 text-sm">
+            <option value="">{typeConfig.termLabel}</option>
+            {typeConfig.terms.map((tm) => <option key={tm} value={tm}>{tm}</option>)}
+          </select>
           <input required type="number" step="0.1" placeholder="Score" value={form.score}
             onChange={(e) => setForm({ ...form, score: e.target.value })}
             className="rounded-card border border-line dark:border-ink-border bg-white dark:bg-ink-surface text-ink dark:text-sand px-3.5 py-2.5 text-sm" />
