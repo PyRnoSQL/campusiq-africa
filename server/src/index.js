@@ -9,11 +9,12 @@ const rateLimit = require('express-rate-limit');
 
 const authRoutes = require('./routes/auth');
 const institutionsRoutes = require('./routes/institutions');
+const admissionsRoutes = require('./routes/admissions');
 const syncRoutes = require('./routes/sync');
 const analyticsRoutes = require('./routes/analytics');
 const {
   studentsRouter, staffRouter, classesRouter, attendanceRouter,
-  gradesRouter, financeRouter, admissionsRouter, documentsRouter, announcementsRouter,
+  gradesRouter, financeRouter, documentsRouter, announcementsRouter,
 } = require('./routes');
 
 const app = express();
@@ -40,7 +41,7 @@ app.use('/api/classes', classesRouter);
 app.use('/api/attendance', attendanceRouter);
 app.use('/api/grades', gradesRouter);
 app.use('/api/finance', financeRouter);
-app.use('/api/admissions', admissionsRouter);
+app.use('/api/admissions', admissionsRoutes);
 app.use('/api/documents', documentsRouter);
 app.use('/api/announcements', announcementsRouter);
 app.use('/api/sync', syncRoutes);

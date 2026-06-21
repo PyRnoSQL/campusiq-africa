@@ -7,6 +7,7 @@ import DashboardPage from './pages/DashboardPage';
 import StudentsPage from './pages/StudentsPage';
 import GradesPage from './pages/GradesPage';
 import FinancePage from './pages/FinancePage';
+import PublicApplicationPage from './pages/PublicApplicationPage';
 import ModulePage from './pages/ModulePage';
 
 function ProtectedRoute({ children }) {
@@ -46,6 +47,7 @@ export default function App() {
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/apply" element={<PublicApplicationPage />} />
       <Route path="/" element={<ProtectedRoute><AppShell /></ProtectedRoute>}>
         <Route index element={<DashboardPage />} />
         <Route path="students" element={<StudentsPage />} />

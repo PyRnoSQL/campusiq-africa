@@ -5,6 +5,18 @@ const { logAction } = require('../services/auditService');
 
 const router = express.Router();
 
+// Public, no-auth: minimal fields only, active institutions only — powers the
+// institution picker on the public application form (/apply).
+router.get('/public', async (req, res) => {
+  try {
+    const rows = await findAll('Institutions', { status: 'active' });
+    const minimal = rows.map((r) => ({ id: r.id, name: r.name, type: r.type, country: r.country, region_city: r.region_city }));
+    res.json({ data: minimal });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to list institutions', details: err.message });
+  }
+});
+
 router.get('/', authenticate, async (req, res) => {
   try {
     if (req.user.role === 'SuperAdmin') {
