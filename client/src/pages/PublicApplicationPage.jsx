@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 import { CheckCircle2 } from 'lucide-react';
 
@@ -7,8 +7,17 @@ const emptyForm = {
   desired_program: '', guardian_contact: '', previous_school: '',
 };
 
+// Public-facing category labels — generic, no institution names or locations,
+// so the picker doesn't expose which specific schools/cities are on the platform
+// until the applicant has already narrowed down what kind of institution they want.
+const CATEGORIES = [
+  { key: 'school', label: 'Lycée/Collège', matchesType: (type) => type === 'General' || type === 'Technical/Vocational' },
+  { key: 'university', label: 'Université/Institut Supérieur', matchesType: (type) => type === 'University' },
+];
+
 export default function PublicApplicationPage() {
   const [institutions, setInstitutions] = useState([]);
+  const [category, setCategory] = useState('');
   const [form, setForm] = useState(emptyForm);
   const [submitted, setSubmitted] = useState(null);
   const [error, setError] = useState('');
@@ -17,6 +26,17 @@ export default function PublicApplicationPage() {
   useEffect(() => {
     axios.get('/api/institutions/public').then((res) => setInstitutions(res.data.data || [])).catch(() => {});
   }, []);
+
+  const activeCategory = CATEGORIES.find((c) => c.key === category);
+  const filteredInstitutions = useMemo(
+    () => (activeCategory ? institutions.filter((i) => activeCategory.matchesType(i.type)) : []),
+    [institutions, activeCategory]
+  );
+
+  function handleCategoryChange(key) {
+    setCategory(key);
+    setForm((f) => ({ ...f, institution_id: '' }));
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -58,13 +78,35 @@ export default function PublicApplicationPage() {
         <p className="text-sm text-slate mb-6">Submit your application — no account needed.</p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <select required value={form.institution_id} onChange={(e) => setForm({ ...form, institution_id: e.target.value })}
-            className="w-full rounded-card border border-line bg-white px-3.5 py-2.5 text-sm">
-            <option value="">Select institution</option>
-            {institutions.map((i) => (
-              <option key={i.id} value={i.id}>{i.name} — {i.region_city}, {i.country}</option>
-            ))}
-          </select>
+          <div>
+            <label className="block text-xs font-medium text-slate mb-1.5">Type of institution</label>
+            <div className="grid grid-cols-2 gap-2">
+              {CATEGORIES.map((c) => (
+                <button
+                  type="button"
+                  key={c.key}
+                  onClick={() => handleCategoryChange(c.key)}
+                  className={`rounded-card border px-3 py-3 text-sm font-medium text-center transition-colors ${
+                    category === c.key ? 'border-clay bg-clay/10 text-clay' : 'border-line bg-white text-slate hover:border-clay/40'
+                  }`}
+                >
+                  {c.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {category && (
+            <select required value={form.institution_id} onChange={(e) => setForm({ ...form, institution_id: e.target.value })}
+              className="w-full rounded-card border border-line bg-white px-3.5 py-2.5 text-sm">
+              <option value="">Select institution</option>
+              {filteredInstitutions.map((i) => (
+                <option key={i.id} value={i.id}>{i.name}</option>
+              ))}
+              {filteredInstitutions.length === 0 && <option value="" disabled>No institutions available in this category yet</option>}
+            </select>
+          )}
+
           <input required placeholder="Full name" value={form.applicant_name}
             onChange={(e) => setForm({ ...form, applicant_name: e.target.value })}
             className="w-full rounded-card border border-line bg-white px-3.5 py-2.5 text-sm" />
