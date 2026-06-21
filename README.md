@@ -73,6 +73,16 @@ This creates every tab (Institutions, Users, Students, Staff, Classes_Programs, 
 
 All sample user accounts share the demo password printed at the end of the script (default `Campus2026!`). Example login: `admin@campusiq.africa`.
 
+### Production / blank setup (real institutions, no demo data)
+
+For a live deployment onboarding real schools/universities instead of demoing, run with `SEED_SAMPLE_DATA=false`. This creates every tab with headers only (zero sample rows), except it still creates one working `SuperAdmin` account so you can log in and start adding institutions yourself:
+
+```bash
+SEED_SAMPLE_DATA=false SUPERADMIN_EMAIL=you@yourorg.com SUPERADMIN_PASSWORD='choose-a-strong-password' npm run setup:sheets
+```
+
+Optional: `SUPERADMIN_NAME` to set the display name (defaults to "Super Admin"). Once logged in as SuperAdmin, you create institutions via `POST /api/institutions` (or directly as new rows in the `Institutions` tab) and `InstitutionAdmin` users for each one — no limit on how many institutions a single deployment can host.
+
 ## 4. Run locally
 
 ```bash
