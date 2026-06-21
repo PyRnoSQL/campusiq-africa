@@ -5,10 +5,10 @@ export default function StatCard({ label, value, accent = 'teal', suffix = '' })
     teal: 'text-teal',
     clay: 'text-clay',
     gold: 'text-gold',
-    ink: 'text-ink',
+    ink: 'text-ink dark:text-sand',
   };
   return (
-    <div className="bg-white rounded-card border border-line px-5 py-4">
+    <div className="bg-white dark:bg-ink-surface rounded-card border border-line dark:border-ink-border px-5 py-4">
       <p className="text-xs font-medium text-slate mb-2">{label}</p>
       <p className={`font-display text-3xl font-semibold ${accents[accent]}`}>
         {value}

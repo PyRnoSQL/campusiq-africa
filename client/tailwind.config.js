@@ -12,6 +12,10 @@ export default {
         teal: '#1F6F6B',
         slate: '#5B6072',
         line: '#E4DCC9',
+        // Dark mode surfaces — kept in the same ink family so the brand stays
+        // recognizable, just inverted in weight rather than a generic gray.
+        'ink-surface': '#1B2036',
+        'ink-border': '#2C3252',
       },
       fontFamily: {
         display: ['"Sora"', 'sans-serif'],

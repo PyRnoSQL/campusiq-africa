@@ -68,25 +68,25 @@ export default function FinancePage() {
       </div>
 
       {showForm && (
-        <form onSubmit={handleSubmit} className="bg-white border border-line rounded-card p-5 grid sm:grid-cols-3 gap-4">
+        <form onSubmit={handleSubmit} className="bg-white dark:bg-ink-surface border border-line dark:border-ink-border rounded-card p-5 grid sm:grid-cols-3 gap-4">
           <select required value={form.student_id} onChange={(e) => setForm({ ...form, student_id: e.target.value })}
-            className="rounded-card border border-line px-3.5 py-2.5 text-sm">
+            className="rounded-card border border-line dark:border-ink-border bg-white dark:bg-ink-surface text-ink dark:text-sand px-3.5 py-2.5 text-sm">
             <option value="">Select student</option>
             {students.map((s) => <option key={s.id} value={s.id}>{s.first_name} {s.last_name}</option>)}
           </select>
           <input required placeholder="Fee type" value={form.fee_type}
             onChange={(e) => setForm({ ...form, fee_type: e.target.value })}
-            className="rounded-card border border-line px-3.5 py-2.5 text-sm" />
+            className="rounded-card border border-line dark:border-ink-border bg-white dark:bg-ink-surface text-ink dark:text-sand px-3.5 py-2.5 text-sm" />
           <input value={form.currency} onChange={(e) => setForm({ ...form, currency: e.target.value })}
-            placeholder="Currency" className="rounded-card border border-line px-3.5 py-2.5 text-sm" />
+            placeholder="Currency" className="rounded-card border border-line dark:border-ink-border bg-white dark:bg-ink-surface text-ink dark:text-sand px-3.5 py-2.5 text-sm" />
           <input required type="number" placeholder="Amount due" value={form.amount_due}
             onChange={(e) => setForm({ ...form, amount_due: e.target.value })}
-            className="rounded-card border border-line px-3.5 py-2.5 text-sm" />
+            className="rounded-card border border-line dark:border-ink-border bg-white dark:bg-ink-surface text-ink dark:text-sand px-3.5 py-2.5 text-sm" />
           <input type="number" placeholder="Amount paid" value={form.amount_paid}
             onChange={(e) => setForm({ ...form, amount_paid: e.target.value })}
-            className="rounded-card border border-line px-3.5 py-2.5 text-sm" />
+            className="rounded-card border border-line dark:border-ink-border bg-white dark:bg-ink-surface text-ink dark:text-sand px-3.5 py-2.5 text-sm" />
           <input type="date" value={form.due_date} onChange={(e) => setForm({ ...form, due_date: e.target.value })}
-            className="rounded-card border border-line px-3.5 py-2.5 text-sm" />
+            className="rounded-card border border-line dark:border-ink-border bg-white dark:bg-ink-surface text-ink dark:text-sand px-3.5 py-2.5 text-sm" />
           <div className="sm:col-span-3 flex gap-3 justify-end">
             <button type="button" onClick={() => setShowForm(false)} className="text-sm font-medium text-slate px-4 py-2.5">Cancel</button>
             <button type="submit" className="rounded-card bg-clay text-white text-sm font-medium px-5 py-2.5 hover:bg-clay/90">Save</button>
@@ -94,7 +94,7 @@ export default function FinancePage() {
         </form>
       )}
 
-      <div className="bg-white border border-line rounded-card overflow-x-auto">
+      <div className="bg-white dark:bg-ink-surface border border-line dark:border-ink-border rounded-card overflow-x-auto">
         <table className="w-full text-sm min-w-[800px]">
           <thead className="bg-ink text-sand text-xs uppercase tracking-wide">
             <tr>
@@ -112,7 +112,7 @@ export default function FinancePage() {
             {fees.map((f) => {
               const student = studentFor(f);
               return (
-                <tr key={f.id} className="border-t border-line">
+                <tr key={f.id} className="border-t border-line dark:border-ink-border">
                   <td className="px-4 py-3">{student ? `${student.first_name} ${student.last_name}` : f.student_id}</td>
                   <td className="px-4 py-3">{f.fee_type}</td>
                   <td className="px-4 py-3 font-mono text-xs">{Number(f.amount_due).toLocaleString()} {f.currency}</td>

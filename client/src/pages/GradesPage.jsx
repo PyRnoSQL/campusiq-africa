@@ -65,7 +65,7 @@ export default function GradesPage() {
         <select
           value={selectedStudentId}
           onChange={(e) => setSelectedStudentId(e.target.value)}
-          className="rounded-card border border-line px-3.5 py-2.5 text-sm bg-white"
+          className="rounded-card border border-line dark:border-ink-border bg-white dark:bg-ink-surface text-ink dark:text-sand px-3.5 py-2.5 text-sm"
         >
           <option value="">All students</option>
           {students.map((s) => (
@@ -83,30 +83,30 @@ export default function GradesPage() {
       </div>
 
       {showForm && (
-        <form onSubmit={handleSubmit} className="bg-white border border-line rounded-card p-5 grid sm:grid-cols-3 gap-4">
+        <form onSubmit={handleSubmit} className="bg-white dark:bg-ink-surface border border-line dark:border-ink-border rounded-card p-5 grid sm:grid-cols-3 gap-4">
           <select required value={form.student_id} onChange={(e) => setForm({ ...form, student_id: e.target.value })}
-            className="rounded-card border border-line px-3.5 py-2.5 text-sm sm:col-span-1">
+            className="rounded-card border border-line dark:border-ink-border bg-white dark:bg-ink-surface text-ink dark:text-sand px-3.5 py-2.5 text-sm sm:col-span-1">
             <option value="">Select student</option>
             {students.map((s) => <option key={s.id} value={s.id}>{s.first_name} {s.last_name}</option>)}
           </select>
           <input required placeholder="Subject / Course" value={form.subject_course}
             onChange={(e) => setForm({ ...form, subject_course: e.target.value })}
-            className="rounded-card border border-line px-3.5 py-2.5 text-sm" />
+            className="rounded-card border border-line dark:border-ink-border bg-white dark:bg-ink-surface text-ink dark:text-sand px-3.5 py-2.5 text-sm" />
           <input placeholder="Assessment type" value={form.assessment_type}
             onChange={(e) => setForm({ ...form, assessment_type: e.target.value })}
-            className="rounded-card border border-line px-3.5 py-2.5 text-sm" />
+            className="rounded-card border border-line dark:border-ink-border bg-white dark:bg-ink-surface text-ink dark:text-sand px-3.5 py-2.5 text-sm" />
           <input placeholder="Term" value={form.term}
             onChange={(e) => setForm({ ...form, term: e.target.value })}
-            className="rounded-card border border-line px-3.5 py-2.5 text-sm" />
+            className="rounded-card border border-line dark:border-ink-border bg-white dark:bg-ink-surface text-ink dark:text-sand px-3.5 py-2.5 text-sm" />
           <input required type="number" step="0.1" placeholder="Score" value={form.score}
             onChange={(e) => setForm({ ...form, score: e.target.value })}
-            className="rounded-card border border-line px-3.5 py-2.5 text-sm" />
+            className="rounded-card border border-line dark:border-ink-border bg-white dark:bg-ink-surface text-ink dark:text-sand px-3.5 py-2.5 text-sm" />
           <input required type="number" step="0.1" placeholder="Max score" value={form.max_score}
             onChange={(e) => setForm({ ...form, max_score: e.target.value })}
-            className="rounded-card border border-line px-3.5 py-2.5 text-sm" />
+            className="rounded-card border border-line dark:border-ink-border bg-white dark:bg-ink-surface text-ink dark:text-sand px-3.5 py-2.5 text-sm" />
           <input placeholder="Comments" value={form.comments}
             onChange={(e) => setForm({ ...form, comments: e.target.value })}
-            className="rounded-card border border-line px-3.5 py-2.5 text-sm sm:col-span-3" />
+            className="rounded-card border border-line dark:border-ink-border bg-white dark:bg-ink-surface text-ink dark:text-sand px-3.5 py-2.5 text-sm sm:col-span-3" />
           <div className="sm:col-span-3 flex gap-3 justify-end">
             <button type="button" onClick={() => setShowForm(false)} className="text-sm font-medium text-slate px-4 py-2.5">Cancel</button>
             <button type="submit" className="rounded-card bg-clay text-white text-sm font-medium px-5 py-2.5 hover:bg-clay/90">Save</button>
@@ -114,7 +114,7 @@ export default function GradesPage() {
         </form>
       )}
 
-      <div className="bg-white border border-line rounded-card overflow-x-auto">
+      <div className="bg-white dark:bg-ink-surface border border-line dark:border-ink-border rounded-card overflow-x-auto">
         <table className="w-full text-sm min-w-[700px]">
           <thead className="bg-ink text-sand text-xs uppercase tracking-wide">
             <tr>
@@ -133,7 +133,7 @@ export default function GradesPage() {
               const student = students.find((s) => s.id === g.student_id);
               const scaled = scoreToScale(g.score, g.max_score, active?.type);
               return (
-                <tr key={g.id} className="border-t border-line">
+                <tr key={g.id} className="border-t border-line dark:border-ink-border">
                   <td className="px-4 py-3">{student ? `${student.first_name} ${student.last_name}` : g.student_id}</td>
                   <td className="px-4 py-3">{g.subject_course}</td>
                   <td className="px-4 py-3 text-slate">{g.assessment_type}</td>

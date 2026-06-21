@@ -63,9 +63,9 @@ export default function StudentsPage() {
       </div>
 
       {showForm && (
-        <form onSubmit={handleSubmit} className="bg-white border border-line rounded-card p-5 grid sm:grid-cols-2 gap-4">
+        <form onSubmit={handleSubmit} className="bg-white dark:bg-ink-surface border border-line dark:border-ink-border rounded-card p-5 grid sm:grid-cols-2 gap-4">
           <div className="sm:col-span-2 flex items-center gap-4">
-            <div className="h-16 w-16 rounded-full bg-sand border border-line overflow-hidden flex items-center justify-center shrink-0">
+            <div className="h-16 w-16 rounded-full bg-sand dark:bg-ink-surface border border-line dark:border-ink-border overflow-hidden flex items-center justify-center shrink-0">
               {form.photo_url ? <img src={form.photo_url} alt="" className="h-full w-full object-cover" /> : <Camera size={20} className="text-slate" />}
             </div>
             <label className="text-xs font-medium text-clay cursor-pointer hover:underline">
@@ -75,22 +75,22 @@ export default function StudentsPage() {
           </div>
           <input required placeholder={t('students.name') + ' (first)'} value={form.first_name}
             onChange={(e) => setForm({ ...form, first_name: e.target.value })}
-            className="rounded-card border border-line px-3.5 py-2.5 text-sm" />
+            className="rounded-card border border-line dark:border-ink-border bg-white dark:bg-ink-surface text-ink dark:text-sand px-3.5 py-2.5 text-sm" />
           <input required placeholder={t('students.name') + ' (last)'} value={form.last_name}
             onChange={(e) => setForm({ ...form, last_name: e.target.value })}
-            className="rounded-card border border-line px-3.5 py-2.5 text-sm" />
+            className="rounded-card border border-line dark:border-ink-border bg-white dark:bg-ink-surface text-ink dark:text-sand px-3.5 py-2.5 text-sm" />
           <input type="date" value={form.date_of_birth}
             onChange={(e) => setForm({ ...form, date_of_birth: e.target.value })}
-            className="rounded-card border border-line px-3.5 py-2.5 text-sm" />
+            className="rounded-card border border-line dark:border-ink-border bg-white dark:bg-ink-surface text-ink dark:text-sand px-3.5 py-2.5 text-sm" />
           <input placeholder={`${typeConfig.classTerm} ID`} value={form.class_program_id}
             onChange={(e) => setForm({ ...form, class_program_id: e.target.value })}
-            className="rounded-card border border-line px-3.5 py-2.5 text-sm" />
+            className="rounded-card border border-line dark:border-ink-border bg-white dark:bg-ink-surface text-ink dark:text-sand px-3.5 py-2.5 text-sm" />
           <input placeholder={t('students.guardian')} value={form.guardian_name}
             onChange={(e) => setForm({ ...form, guardian_name: e.target.value })}
-            className="rounded-card border border-line px-3.5 py-2.5 text-sm" />
+            className="rounded-card border border-line dark:border-ink-border bg-white dark:bg-ink-surface text-ink dark:text-sand px-3.5 py-2.5 text-sm" />
           <input placeholder="Guardian phone" value={form.guardian_phone}
             onChange={(e) => setForm({ ...form, guardian_phone: e.target.value })}
-            className="rounded-card border border-line px-3.5 py-2.5 text-sm" />
+            className="rounded-card border border-line dark:border-ink-border bg-white dark:bg-ink-surface text-ink dark:text-sand px-3.5 py-2.5 text-sm" />
           <div className="sm:col-span-2 flex gap-3 justify-end">
             <button type="button" onClick={() => setShowForm(false)} className="text-sm font-medium text-slate px-4 py-2.5">
               {t('common.cancel')}
@@ -102,7 +102,7 @@ export default function StudentsPage() {
         </form>
       )}
 
-      <div className="bg-white border border-line rounded-card overflow-hidden">
+      <div className="bg-white dark:bg-ink-surface border border-line dark:border-ink-border rounded-card overflow-hidden">
         <table className="w-full text-sm">
           <thead className="bg-ink text-sand text-xs uppercase tracking-wide">
             <tr>
@@ -121,9 +121,9 @@ export default function StudentsPage() {
               <tr><td className="px-4 py-6 text-slate" colSpan={7}>{t('common.no_results')}</td></tr>
             )}
             {students.map((s) => (
-              <tr key={s.id} className="border-t border-line">
+              <tr key={s.id} className="border-t border-line dark:border-ink-border">
                 <td className="px-4 py-2.5">
-                  <div className="h-8 w-8 rounded-full bg-sand border border-line overflow-hidden flex items-center justify-center text-[10px] font-semibold text-slate">
+                  <div className="h-8 w-8 rounded-full bg-sand dark:bg-ink-surface border border-line dark:border-ink-border overflow-hidden flex items-center justify-center text-[10px] font-semibold text-slate">
                     {s.photo_url ? <img src={s.photo_url} alt="" className="h-full w-full object-cover" /> : `${s.first_name?.[0] || ''}${s.last_name?.[0] || ''}`}
                   </div>
                 </td>

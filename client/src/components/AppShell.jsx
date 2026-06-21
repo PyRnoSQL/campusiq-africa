@@ -3,12 +3,14 @@ import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
   LayoutDashboard, GraduationCap, Users, BookOpen, CalendarCheck, ClipboardList,
-  Wallet, FileCheck2, BadgeCheck, Megaphone, ActivitySquare, Settings, LogOut,
+  Wallet, FileCheck2, BadgeCheck, Megaphone, ActivitySquare, Settings, LogOut, Moon, Sun, Command,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useInstitution } from '../context/InstitutionContext';
 import { LANGUAGES } from '../i18n';
 import SyncIndicator from './SyncIndicator';
+import CommandPalette from './CommandPalette';
+import { useTheme } from '../context/ThemeContext';
 
 const NAV_ITEMS = [
   { to: '/', key: 'dashboard', icon: LayoutDashboard, end: true },
@@ -28,11 +30,12 @@ export default function AppShell() {
   const { t, i18n } = useTranslation();
   const { user, logout } = useAuth();
   const { institutions, active, activeId, switchInstitution, typeConfig } = useInstitution();
+  const { dark, toggleDark } = useTheme();
   const navigate = useNavigate();
 
   return (
-    <div className="flex min-h-screen bg-sand">
-      <aside className="hidden md:flex w-64 flex-col border-e border-line bg-ink text-sand px-4 py-6">
+    <div className="flex min-h-screen bg-sand dark:bg-ink transition-colors">
+      <aside className="hidden md:flex w-64 flex-col border-e border-line dark:border-ink-border bg-ink text-sand px-4 py-6">
         <div className="flex items-center gap-2 px-2 mb-4">
           <div className="h-8 w-8 rounded-full bg-gradient-to-br from-clay to-gold flex items-center justify-center font-display font-bold text-ink text-sm">CQ</div>
           <span className="font-display font-semibold tracking-tight text-lg">{t('app_name')}</span>
@@ -100,16 +103,30 @@ export default function AppShell() {
       </aside>
 
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="flex items-center justify-between gap-4 border-b border-line bg-sand/90 backdrop-blur px-4 md:px-8 py-4 sticky top-0 z-10">
+        <header className="flex items-center justify-between gap-4 border-b border-line dark:border-ink-border bg-sand/90 dark:bg-ink/90 backdrop-blur px-4 md:px-8 py-4 sticky top-0 z-10">
           <div className="min-w-0">
             <p className="font-display font-semibold text-lg truncate">{t('dashboard.welcome', { name: user?.full_name?.split(' ')[0] || '' })}</p>
           </div>
           <div className="flex items-center gap-3">
+            <button
+              onClick={() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true }))}
+              className="hidden sm:flex items-center gap-2 rounded-full border border-line dark:border-ink-border bg-white/70 dark:bg-ink-surface px-3 py-1.5 text-xs font-medium text-slate hover:bg-white dark:hover:bg-ink-border transition-colors"
+            >
+              <Command size={13} /> <span>Search</span>
+              <kbd className="text-[10px] font-mono opacity-60">⌘K</kbd>
+            </button>
+            <button
+              onClick={toggleDark}
+              aria-label="Toggle dark mode"
+              className="flex items-center justify-center h-8 w-8 rounded-full border border-line dark:border-ink-border bg-white/70 dark:bg-ink-surface text-slate hover:bg-white dark:hover:bg-ink-border transition-colors"
+            >
+              {dark ? <Sun size={15} /> : <Moon size={15} />}
+            </button>
             <SyncIndicator />
             <select
               value={i18n.language?.slice(0, 2)}
               onChange={(e) => i18n.changeLanguage(e.target.value)}
-              className="rounded-full border border-line bg-white/70 px-3 py-1.5 text-xs font-medium text-slate"
+              className="rounded-full border border-line dark:border-ink-border bg-white/70 dark:bg-ink-surface px-3 py-1.5 text-xs font-medium text-slate"
               aria-label={t('common.language')}
             >
               {LANGUAGES.map((l) => (
@@ -122,6 +139,7 @@ export default function AppShell() {
           <Outlet />
         </main>
       </div>
+      <CommandPalette />
     </div>
   );
 }

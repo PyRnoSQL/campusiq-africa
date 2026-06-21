@@ -56,7 +56,7 @@ export default function DashboardPage() {
       </div>
 
       <div className="grid lg:grid-cols-5 gap-4">
-        <div className="lg:col-span-3 bg-white rounded-card border border-line p-5">
+        <div className="lg:col-span-3 bg-white dark:bg-ink-surface rounded-card border border-line dark:border-ink-border p-5">
           <p className="font-display font-semibold mb-4">{t('dashboard.attendance_rate')} / {t('dashboard.collection_rate')}</p>
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={chartData}>
@@ -69,7 +69,7 @@ export default function DashboardPage() {
           </ResponsiveContainer>
         </div>
 
-        <div className="lg:col-span-2 bg-white rounded-card border border-line p-5">
+        <div className="lg:col-span-2 bg-white dark:bg-ink-surface rounded-card border border-line dark:border-ink-border p-5">
           <p className="font-display font-semibold mb-2">{typeConfig.classTerm} composition</p>
           <ResponsiveContainer width="100%" height={220}>
             <PieChart>
@@ -82,13 +82,13 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      <div className="bg-white rounded-card border border-line p-5">
+      <div className="bg-white dark:bg-ink-surface rounded-card border border-line dark:border-ink-border p-5">
         <p className="font-display font-semibold">{t('risk.title')}</p>
         <p className="text-xs text-slate mb-4">{t('risk.subtitle')}</p>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {risk.length === 0 && <p className="text-sm text-slate">{t('common.no_results')}</p>}
           {risk.map((r) => (
-            <div key={r.student_id} className="border border-line rounded-card p-3">
+            <div key={r.student_id} className="border border-line dark:border-ink-border rounded-card p-3">
               <div className="flex items-center justify-between mb-1">
                 <p className="text-sm font-medium">{r.name}</p>
                 <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${r.risk_level === 'high' ? 'bg-clay/10 text-clay' : 'bg-gold/10 text-gold'}`}>
@@ -102,12 +102,12 @@ export default function DashboardPage() {
       </div>
 
       {user?.role === 'SuperAdmin' && institutions.length > 1 && (
-        <div className="bg-white rounded-card border border-line p-5">
+        <div className="bg-white dark:bg-ink-surface rounded-card border border-line dark:border-ink-border p-5">
           <p className="font-display font-semibold mb-1">Cross-institution overview</p>
           <p className="text-xs text-slate mb-4">All institutions on this deployment — click a row to drill in.</p>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="text-xs uppercase tracking-wide text-slate border-b border-line">
+              <thead className="text-xs uppercase tracking-wide text-slate border-b border-line dark:border-ink-border">
                 <tr>
                   <th className="text-start py-2">Institution</th>
                   <th className="text-start py-2">Type</th>
@@ -120,7 +120,7 @@ export default function DashboardPage() {
                   <tr
                     key={inst.id}
                     onClick={() => switchInstitution(inst.id)}
-                    className={`border-b border-line last:border-0 cursor-pointer hover:bg-sand ${inst.id === active?.id ? 'bg-sand' : ''}`}
+                    className={`border-b border-line dark:border-ink-border last:border-0 cursor-pointer hover:bg-sand dark:hover:bg-ink-surface ${inst.id === active?.id ? 'bg-sand' : ''}`}
                   >
                     <td className="py-2.5 font-medium">{inst.name}</td>
                     <td className="py-2.5 text-slate">{inst.type}</td>

@@ -23,14 +23,14 @@ export default function PaymentQrModal({ fee, student, institution, onClose }) {
 
   return (
     <div className="fixed inset-0 z-50 bg-ink/60 flex items-center justify-center p-4" onClick={onClose}>
-      <div className="bg-white rounded-card shadow-2xl max-w-xs w-full p-5 text-center" onClick={(e) => e.stopPropagation()}>
+      <div className="bg-white dark:bg-ink-surface rounded-card shadow-2xl max-w-xs w-full p-5 text-center" onClick={(e) => e.stopPropagation()}>
         <div className="flex justify-end">
           <button onClick={onClose} className="text-slate hover:text-ink"><X size={16} /></button>
         </div>
         <p className="font-display font-semibold mb-1">Mobile Money payment</p>
         <p className="text-xs text-slate mb-4">Guardian scans this with their Mobile Money app to pay the outstanding balance</p>
         <div className="flex justify-center mb-4">
-          <canvas ref={canvasRef} className="rounded-card border border-line" />
+          <canvas ref={canvasRef} className="rounded-card border border-line dark:border-ink-border" />
         </div>
         <p className="text-2xl font-display font-semibold text-clay">{outstanding.toLocaleString()} {fee.currency}</p>
         <p className="text-xs text-slate mt-1">{fee.fee_type} · {student?.first_name} {student?.last_name}</p>

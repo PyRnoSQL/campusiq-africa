@@ -46,7 +46,7 @@ export default function ModulePage({ resource, titleKey, fields }) {
       </div>
 
       {showForm && (
-        <form onSubmit={handleSubmit} className="bg-white border border-line rounded-card p-5 grid sm:grid-cols-2 gap-4">
+        <form onSubmit={handleSubmit} className="bg-white dark:bg-ink-surface border border-line dark:border-ink-border rounded-card p-5 grid sm:grid-cols-2 gap-4">
           {fields.map((f) => (
             <input
               key={f.key}
@@ -54,7 +54,7 @@ export default function ModulePage({ resource, titleKey, fields }) {
               placeholder={f.label}
               value={form[f.key]}
               onChange={(e) => setForm({ ...form, [f.key]: e.target.value })}
-              className="rounded-card border border-line px-3.5 py-2.5 text-sm"
+              className="rounded-card border border-line dark:border-ink-border bg-white dark:bg-ink-surface text-ink dark:text-sand px-3.5 py-2.5 text-sm"
             />
           ))}
           <div className="sm:col-span-2 flex gap-3 justify-end">
@@ -68,7 +68,7 @@ export default function ModulePage({ resource, titleKey, fields }) {
         </form>
       )}
 
-      <div className="bg-white border border-line rounded-card overflow-x-auto">
+      <div className="bg-white dark:bg-ink-surface border border-line dark:border-ink-border rounded-card overflow-x-auto">
         <table className="w-full text-sm min-w-[600px]">
           <thead className="bg-ink text-sand text-xs uppercase tracking-wide">
             <tr>
@@ -83,7 +83,7 @@ export default function ModulePage({ resource, titleKey, fields }) {
               <tr><td className="px-4 py-6 text-slate" colSpan={fields.length}>{t('common.no_results')}</td></tr>
             )}
             {rows.map((row) => (
-              <tr key={row.id} className="border-t border-line">
+              <tr key={row.id} className="border-t border-line dark:border-ink-border">
                 {fields.map((f) => (
                   <td key={f.key} className="px-4 py-3 whitespace-nowrap">
                     {row[f.key] || '—'}

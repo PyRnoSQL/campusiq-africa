@@ -23,7 +23,7 @@ export default function StudentIdCardModal({ student, onClose }) {
   return (
     <div className="fixed inset-0 z-50 bg-ink/60 flex items-center justify-center p-4 print:bg-white print:p-0" onClick={onClose}>
       <div className="bg-white rounded-card shadow-2xl max-w-sm w-full overflow-hidden print:shadow-none" onClick={(e) => e.stopPropagation()}>
-        <div className="flex items-center justify-between px-4 py-3 border-b border-line print:hidden">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-line dark:border-ink-border print:hidden">
           <p className="font-display font-semibold">Digital ID Card</p>
           <div className="flex items-center gap-2">
             <button onClick={() => window.print()} className="flex items-center gap-1.5 text-xs font-medium text-slate hover:text-ink">
