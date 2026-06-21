@@ -5,6 +5,8 @@ import AppShell from './components/AppShell';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import StudentsPage from './pages/StudentsPage';
+import GradesPage from './pages/GradesPage';
+import FinancePage from './pages/FinancePage';
 import ModulePage from './pages/ModulePage';
 
 function ProtectedRoute({ children }) {
@@ -25,16 +27,6 @@ const MODULE_CONFIGS = {
   attendance: { resource: 'attendance', titleKey: 'nav.attendance', fields: [
     { key: 'student_id', label: 'Student ID' }, { key: 'class_program_id', label: 'Class ID' },
     { key: 'date', label: 'Date', type: 'date' }, { key: 'status', label: 'Status (present/absent/late)' },
-  ] },
-  grades: { resource: 'grades', titleKey: 'nav.grades', fields: [
-    { key: 'student_id', label: 'Student ID' }, { key: 'subject_course', label: 'Subject / Course' },
-    { key: 'assessment_type', label: 'Assessment type' }, { key: 'score', label: 'Score', type: 'number' },
-    { key: 'max_score', label: 'Max score', type: 'number' },
-  ] },
-  finance: { resource: 'finance', titleKey: 'nav.finance', fields: [
-    { key: 'student_id', label: 'Student ID' }, { key: 'fee_type', label: 'Fee type' },
-    { key: 'amount_due', label: 'Amount due', type: 'number' }, { key: 'amount_paid', label: 'Amount paid', type: 'number' },
-    { key: 'status', label: 'Status (paid/partial/unpaid)' },
   ] },
   admissions: { resource: 'admissions', titleKey: 'nav.admissions', fields: [
     { key: 'applicant_name', label: 'Applicant name' }, { key: 'desired_program', label: 'Desired program' },
@@ -57,6 +49,8 @@ export default function App() {
       <Route path="/" element={<ProtectedRoute><AppShell /></ProtectedRoute>}>
         <Route index element={<DashboardPage />} />
         <Route path="students" element={<StudentsPage />} />
+        <Route path="grades" element={<GradesPage />} />
+        <Route path="finance" element={<FinancePage />} />
         {Object.entries(MODULE_CONFIGS).map(([path, cfg]) => (
           <Route key={path} path={path} element={<ModulePage {...cfg} />} />
         ))}

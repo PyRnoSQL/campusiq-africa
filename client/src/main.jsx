@@ -5,12 +5,15 @@ import './i18n';
 import './styles/index.css';
 import App from './App';
 import { AuthProvider } from './context/AuthContext';
+import { InstitutionProvider } from './context/InstitutionContext';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <App />
+        <InstitutionProvider>
+          <App />
+        </InstitutionProvider>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>

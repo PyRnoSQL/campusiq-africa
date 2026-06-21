@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Plus } from 'lucide-react';
+import { Plus, CreditCard, Camera } from 'lucide-react';
 import { list, create } from '../api/client';
+import { useInstitution } from '../context/InstitutionContext';
+import { fileToThumbnail } from '../utils/imageUtils';
+import StudentIdCardModal from '../components/StudentIdCardModal';
 
-const emptyForm = { first_name: '', last_name: '', gender: 'M', date_of_birth: '', class_program_id: '', guardian_name: '', guardian_phone: '' };
+const emptyForm = { first_name: '', last_name: '', gender: 'M', date_of_birth: '', class_program_id: '', guardian_name: '', guardian_phone: '', photo_url: '' };
 
 export default function StudentsPage() {
   const { t } = useTranslation();
+  const { typeConfig } = useInstitution();
   const [students, setStudents] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState(emptyForm);
   const [loading, setLoading] = useState(true);
+  const [cardStudent, setCardStudent] = useState(null);
+  const [photoBusy, setPhotoBusy] = useState(false);
 
   async function refresh() {
     setLoading(true);
@@ -20,6 +26,18 @@ export default function StudentsPage() {
   }
 
   useEffect(() => { refresh(); }, []);
+
+  async function handlePhoto(e) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setPhotoBusy(true);
+    try {
+      const dataUrl = await fileToThumbnail(file);
+      setForm((f) => ({ ...f, photo_url: dataUrl }));
+    } finally {
+      setPhotoBusy(false);
+    }
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -32,7 +50,10 @@ export default function StudentsPage() {
   return (
     <div className="space-y-5">
       <div className="flex items-center justify-between">
-        <h1 className="font-display text-2xl font-semibold">{t('students.title')}</h1>
+        <div>
+          <h1 className="font-display text-2xl font-semibold">{t('students.title')}</h1>
+          <p className="text-xs text-slate">{typeConfig.label} · ID prefix {typeConfig.studentIdPrefix}</p>
+        </div>
         <button
           onClick={() => setShowForm((v) => !v)}
           className="flex items-center gap-2 rounded-card bg-ink text-sand text-sm font-medium px-4 py-2.5 hover:bg-ink/90"
@@ -43,6 +64,15 @@ export default function StudentsPage() {
 
       {showForm && (
         <form onSubmit={handleSubmit} className="bg-white border border-line rounded-card p-5 grid sm:grid-cols-2 gap-4">
+          <div className="sm:col-span-2 flex items-center gap-4">
+            <div className="h-16 w-16 rounded-full bg-sand border border-line overflow-hidden flex items-center justify-center shrink-0">
+              {form.photo_url ? <img src={form.photo_url} alt="" className="h-full w-full object-cover" /> : <Camera size={20} className="text-slate" />}
+            </div>
+            <label className="text-xs font-medium text-clay cursor-pointer hover:underline">
+              {photoBusy ? t('common.loading') : 'Upload photo'}
+              <input type="file" accept="image/*" onChange={handlePhoto} className="hidden" />
+            </label>
+          </div>
           <input required placeholder={t('students.name') + ' (first)'} value={form.first_name}
             onChange={(e) => setForm({ ...form, first_name: e.target.value })}
             className="rounded-card border border-line px-3.5 py-2.5 text-sm" />
@@ -52,7 +82,7 @@ export default function StudentsPage() {
           <input type="date" value={form.date_of_birth}
             onChange={(e) => setForm({ ...form, date_of_birth: e.target.value })}
             className="rounded-card border border-line px-3.5 py-2.5 text-sm" />
-          <input placeholder="Class / Program ID" value={form.class_program_id}
+          <input placeholder={`${typeConfig.classTerm} ID`} value={form.class_program_id}
             onChange={(e) => setForm({ ...form, class_program_id: e.target.value })}
             className="rounded-card border border-line px-3.5 py-2.5 text-sm" />
           <input placeholder={t('students.guardian')} value={form.guardian_name}
@@ -76,20 +106,27 @@ export default function StudentsPage() {
         <table className="w-full text-sm">
           <thead className="bg-ink text-sand text-xs uppercase tracking-wide">
             <tr>
+              <th className="text-start px-4 py-3 font-medium"></th>
               <th className="text-start px-4 py-3 font-medium">{t('students.matricule')}</th>
               <th className="text-start px-4 py-3 font-medium">{t('students.name')}</th>
-              <th className="text-start px-4 py-3 font-medium">{t('students.class')}</th>
+              <th className="text-start px-4 py-3 font-medium">{typeConfig.classTerm}</th>
               <th className="text-start px-4 py-3 font-medium">{t('students.status')}</th>
               <th className="text-start px-4 py-3 font-medium">{t('students.guardian')}</th>
+              <th className="text-start px-4 py-3 font-medium"></th>
             </tr>
           </thead>
           <tbody>
-            {loading && <tr><td className="px-4 py-6 text-slate" colSpan={5}>{t('common.loading')}</td></tr>}
+            {loading && <tr><td className="px-4 py-6 text-slate" colSpan={7}>{t('common.loading')}</td></tr>}
             {!loading && students.length === 0 && (
-              <tr><td className="px-4 py-6 text-slate" colSpan={5}>{t('common.no_results')}</td></tr>
+              <tr><td className="px-4 py-6 text-slate" colSpan={7}>{t('common.no_results')}</td></tr>
             )}
             {students.map((s) => (
               <tr key={s.id} className="border-t border-line">
+                <td className="px-4 py-2.5">
+                  <div className="h-8 w-8 rounded-full bg-sand border border-line overflow-hidden flex items-center justify-center text-[10px] font-semibold text-slate">
+                    {s.photo_url ? <img src={s.photo_url} alt="" className="h-full w-full object-cover" /> : `${s.first_name?.[0] || ''}${s.last_name?.[0] || ''}`}
+                  </div>
+                </td>
                 <td className="px-4 py-3 font-mono text-xs">{s.matricule || '—'}</td>
                 <td className="px-4 py-3">
                   {s.first_name} {s.last_name}
@@ -100,11 +137,18 @@ export default function StudentsPage() {
                   <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-teal/10 text-teal">{s.enrollment_status || 'enrolled'}</span>
                 </td>
                 <td className="px-4 py-3 text-slate">{s.guardian_name || '—'}</td>
+                <td className="px-4 py-3">
+                  <button onClick={() => setCardStudent(s)} className="flex items-center gap-1.5 text-xs font-medium text-clay hover:underline">
+                    <CreditCard size={14} /> ID card
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
+      {cardStudent && <StudentIdCardModal student={cardStudent} onClose={() => setCardStudent(null)} />}
     </div>
   );
 }
